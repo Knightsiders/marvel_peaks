@@ -1,11 +1,12 @@
-<h1>Entretien Technique Peaks</h1>
+<h2>User list</h2>
+<div class='left-side'>
+  <mat-list class='container-userlist'>
+      <mat-list-item *ngFor="let user of users" (click)="selectUser(user)" class="user-card"> {{user.lastname}} {{user.firstname}} - {{user.birthdate}} </mat-list-item>  
+  </mat-list>
 
-<!-- <div class="dashboard-cardoverview-service">
-  <mat-card *ngFor="let user of users" class="service-card">
-      <mat-card-header>
-        <mat-card-title>{{user.lastName}}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-      </mat-card-content>
-    </mat-card>
-  </div> -->
+  <button mat-stroked-button color="primary" (click)="pageDwn()"><<</button>
+  <button mat-stroked-button color="primary">{{this.pageInUse}}</button>
+  <button mat-stroked-button color="primary" (click)="pageUp()">>></button>
+</div>
+
+<app-detail-user class="detail-view" [user]="selectedUser"></app-detail-user>

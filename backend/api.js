@@ -20,10 +20,18 @@ app.use(function (req, res, next) {
 });
 
 
-myrouter.route('/users')
+myrouter.route('/users/page/:numPage')
 .get(function(req,res){
+    console.log('Request incoming')
     var content = JSON.parse(fs.readFileSync("userMock.json"));
-    res.json(content);
+    // A AMELIORER CEPABO
+    if (!isNaN(req.params.numPage) && req.params.numPage > 0) {
+        itemEnd = (req.params.numPage * 10)-1;
+        itemStart = itemEnd - 9;
+        res.json(content.slice(itemStart, itemEnd));
+    } else {
+        console.error('Api param not a number !')
+    }
 });
 
 
