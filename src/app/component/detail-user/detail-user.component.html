@@ -1,0 +1,12 @@
+<div class="detail-container" *ngIf="user">
+
+    <h2>{{user.lastname}} {{user.firstname}}</h2>
+    <div>
+      
+        <mat-list class='list-userprop'>
+            <mat-list-item *ngFor="let userprop of userprops" class="userprop-card"> {{userprop}} : {{user[userprop]}}</mat-list-item>  
+        </mat-list>
+
+    </div>
+
+</div>

@@ -6,18 +6,24 @@ import { AppComponent } from './app.component';
 import { AppPanelComponent } from './component/app-panel/app-panel.component';
 import { HeroServiceService } from './services/hero-service.service';
 import {MatCardModule} from '@angular/material/';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+import { DetailUserComponent } from './component/detail-user/detail-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppPanelComponent,
-    BrowserAnimationsModule,
-    MatCardModule
+    DetailUserComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     HttpClientModule,
-    BrowserModule
+    BrowserModule,
+    MatCardModule,
+    MatListModule,
+    MatButtonModule
   ],
   providers: [{provide: HeroServiceService, useValue: 'http://localhost:4200/', useClass: HeroServiceService}],
   bootstrap: [AppComponent]

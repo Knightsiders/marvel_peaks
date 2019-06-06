@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { StaticInjector } from '../../../node_modules/@angular/core/src/di/injector';
+// import { StaticInjector } from '../../../node_modules/@angular/core/src/di/injector';
 
 @Injectable()
 export class HeroServiceService {
@@ -13,8 +13,8 @@ export class HeroServiceService {
     return this.host + ':' + this.port;
   }
 
-  getAllUsers() {
-    return this.httpClient.get(this.formatUrl() + '/users');
+  getUserPage(numeroPage) {
+    return this.httpClient.get(this.formatUrl() + '/users/page/' + numeroPage);
   }
 
 }

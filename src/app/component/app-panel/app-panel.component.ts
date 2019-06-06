@@ -11,12 +11,30 @@ import { HeroServiceService } from '../../services/hero-service.service';
 export class AppPanelComponent implements OnInit {
 
   private users: Array<User> = [];
+  private pageInUse = 1;
+  private selectedUser: User;
 
   constructor( private apiService: HeroServiceService) {}
 
   ngOnInit() {
+    this.RequestingData();
+  }
+
+  pageUp() {
+    this.pageInUse++;
+    this.RequestingData();
+  }
+
+  pageDwn() {
+    if (this.pageInUse > 1) {
+      this.pageInUse--;
+      this.RequestingData();
+    }
+  }
+
+  private RequestingData() {
     try {
-      this.apiService.getAllUsers().subscribe(
+      this.apiService.getUserPage(this.pageInUse).subscribe(
         data => {this.ReceivingData(data); },
         error => {console.error(error); }
       );
@@ -25,7 +43,12 @@ export class AppPanelComponent implements OnInit {
     }
   }
 
+  selectUser(user) {
+    this.selectedUser = user;
+  }
+
   ReceivingData(data) {
+
     this.users = data;
   }
 
