@@ -13,6 +13,7 @@ export class AppPanelComponent implements OnInit {
   private users: Array<User> = [];
   private pageInUse = 1;
   private selectedUser: User;
+  private filters: Array<String>;
 
   constructor( private apiService: HeroServiceService) {}
 
@@ -43,13 +44,25 @@ export class AppPanelComponent implements OnInit {
     }
   }
 
+  private ChooseFilter(prop) {
+    try {
+      console.log(prop);
+      this.apiService.chooseFilter(prop).subscribe();
+      this.RequestingData();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   selectUser(user) {
     this.selectedUser = user;
   }
 
   ReceivingData(data) {
-
     this.users = data;
+    if (!this.filters) {
+      this.filters = Object.getOwnPropertyNames(this.users[0]);
+    }
   }
 
 }
