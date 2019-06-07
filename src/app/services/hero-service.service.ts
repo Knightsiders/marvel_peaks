@@ -17,4 +17,8 @@ export class HeroServiceService {
     return this.httpClient.get(this.formatUrl() + '/users/page/' + numeroPage);
   }
 
+  chooseFilter(prop) {
+    return this.httpClient.get(this.formatUrl() + '/users/filter/' + prop);
+  }
+
 }

@@ -7,6 +7,13 @@
   <button mat-stroked-button color="primary" (click)="pageDwn()"><<</button>
   <button mat-stroked-button color="primary">{{this.pageInUse}}</button>
   <button mat-stroked-button color="primary" (click)="pageUp()">>></button>
+
+  <mat-form-field class="select-filter">
+    <mat-label>Select</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor="let prop of filters" (click)="ChooseFilter(prop)" value="prop">{{prop}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 
 <app-detail-user class="detail-view" [user]="selectedUser"></app-detail-user>

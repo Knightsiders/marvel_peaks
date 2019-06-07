@@ -9,6 +9,8 @@ import {MatCardModule} from '@angular/material/';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import { DetailUserComponent } from './component/detail-user/detail-user.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { DetailUserComponent } from './component/detail-user/detail-user.compone
     BrowserModule,
     MatCardModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [{provide: HeroServiceService, useValue: 'http://localhost:4200/', useClass: HeroServiceService}],
   bootstrap: [AppComponent]

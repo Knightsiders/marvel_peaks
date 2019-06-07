@@ -8,6 +8,7 @@ var myrouter = express.Router();
 var bodyParser = require("body-parser"); 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+var content = JSON.parse(fs.readFileSync("userMock.json"));
 
 var hostname = 'localhost';
 var port = 8888;
@@ -23,7 +24,6 @@ app.use(function (req, res, next) {
 myrouter.route('/users/page/:numPage')
 .get(function(req,res){
     console.log('Request incoming')
-    var content = JSON.parse(fs.readFileSync("userMock.json"));
     // A AMELIORER CEPABO
     if (!isNaN(req.params.numPage) && req.params.numPage > 0) {
         itemEnd = (req.params.numPage * 10)-1;
@@ -34,6 +34,32 @@ myrouter.route('/users/page/:numPage')
     }
 });
 
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
+
+myrouter.route('/users/filter/:prop')
+.get(function(req,res){
+    console.log(Object.getOwnPropertyNames(content[0]));
+    console.log('Request filter incoming: '+ req.params.prop);
+    if (Object.getOwnPropertyNames(content[0]).includes(req.params.prop)) {
+
+        content.sort(dynamicSort(req.params.prop));
+        res.sendStatus(200)
+    } else {
+        console.error('Api param is not a property from Object !')
+    }
+});
 
 app.use(myrouter);
 
